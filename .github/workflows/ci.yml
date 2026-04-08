@@ -13,19 +13,22 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    if: |
+      !(github.event_name == 'push' && contains(github.event.head_commit.message, 'skip ci')) &&
+      !(github.event_name == 'pull_request' && (contains(github.event.pull_request.title, 'skip ci') || contains(github.event.pull_request.body, 'skip ci')))
     container:
       image: ghcr.io/midkard/wp-php/8.2:latest
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -44,19 +47,22 @@ jobs:
     name: Build
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: |
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      !(github.event_name == 'push' && contains(github.event.head_commit.message, 'skip ci')) &&
+      !(github.event_name == 'pull_request' && (contains(github.event.pull_request.title, 'skip ci') || contains(github.event.pull_request.body, 'skip ci')))
     container:
       image: ghcr.io/midkard/wp-php/8.2:latest
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install production dependencies
         run: composer install --prefer-dist --optimize-autoloader --no-ansi --no-interaction --no-dev --no-progress
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: vendor
           path: vendor/
@@ -66,7 +72,10 @@ jobs:
     name: Release
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: |
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      !(github.event_name == 'push' && contains(github.event.head_commit.message, 'skip ci')) &&
+      !(github.event_name == 'pull_request' && (contains(github.event.pull_request.title, 'skip ci') || contains(github.event.pull_request.body, 'skip ci')))
     permissions:
       contents: write
       issues: write
@@ -75,18 +84,18 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: vendor
           path: vendor/
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
