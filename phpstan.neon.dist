@@ -1,0 +1,17 @@
+#$ vendor/bin/phpstan analyze
+
+includes:
+  - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+  bootstrapFiles:
+    - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    - dnt-notify.php
+  level: max
+  inferPrivatePropertyTypeFromConstructor: true
+  paths:
+    - app/
+    - dnt-notify.php
+
+
+

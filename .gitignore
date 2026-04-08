@@ -1,0 +1,20 @@
+# packages
+node_modules/
+vendor/
+deps/
+.pnpm-store/
+
+# building
+.build/
+.release/
+dist/
+wp/public/build/
+admin/public/admin/
+
+# private
+.vscode/
+
+.phpunit.result.cache
+.env
+__pycache__
+logs

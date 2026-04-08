@@ -1,0 +1,14 @@
+{
+  "name": "dnt-notify-release",
+  "version": "1.0.0",
+  "description": "Semantic release configuration for DNT Notify",
+  "type": "module",
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "dependencies": {
+    "@semantic-release/github": "12.0.6",
+    "@semantic-release/wordpress": "1.6.6",
+    "semantic-release": "25.0.3"
+  }
+}

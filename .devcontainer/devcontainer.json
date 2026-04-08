@@ -1,0 +1,32 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/docker-existing-docker-compose
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+	"name": "WP dnt-notify",
+	"dockerComposeFile": [
+		"./docker-compose.yml"
+	],
+	"service": "wp",
+	"workspaceFolder": "/var/www/html/wp-content/plugins/plugin",
+	"forwardPorts": [
+		80
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"devsense.composer-php-vscode",
+				"devsense.phptools-vscode",
+				"devsense.profiler-php-vscode",
+				"johnbillion.vscode-wordpress-hooks",
+				"yogensia.searchwpdocs"
+			],
+			"settings": {
+				"php.workspace.includePath": "/var/www/html",
+				"php.problems.exclude": {
+					"vendor/": true
+				}
+			}
+		}
+	},
+	"remoteUser": "vscode"
+}

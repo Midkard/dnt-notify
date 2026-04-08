@@ -1,0 +1,9 @@
+{
+    "wp": "6.8.3",
+    "wp-config": "wp-config.php",
+    "plugins": {
+        "woocommerce": "10.2.2"
+    },
+    "wp-tests": "6.8.3",
+    "wp-test-config": "wp-test-config.php"
+}
