@@ -62,7 +62,7 @@ jobs:
         run: composer install --prefer-dist --optimize-autoloader --no-ansi --no-interaction --no-dev --no-progress
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v8
+        uses: actions/upload-artifact@v7
         with:
           name: vendor
           path: vendor/
@@ -103,7 +103,7 @@ jobs:
 
       - name: Install release dependencies
         working-directory: .github/release
-        run: npm i
+        run: npm ci
 
       - name: Run semantic-release
         working-directory: .github/release
