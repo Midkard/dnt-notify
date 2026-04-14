@@ -1,4 +1,4 @@
-FROM registry.dn-ms.ru/dnt-theme/php/8.2:1.0.0
+FROM ghcr.io/midkard/wp-php/8.2:1.0.0
 
 RUN mkdir /workdir
 RUN mkdir /workdir/wp
